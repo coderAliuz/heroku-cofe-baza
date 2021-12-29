@@ -21,7 +21,7 @@ async def send_welcome(message: types.Message):
     db_ob.execute(f"SELECT id FROM cofe_baza WHERE id={message.chat.id}")
     data = db_ob.fetchone()
     if data is None:
-        db_ob.execute("INSERT INTO cofe_baza(user_id,name) VALUES (%s,%s)", (user_id, name))
+        db_ob.execute("INSERT INTO cofe_baza(id,username) VALUES (%s,%s)", (user_id, name))
         db_ob.commit()
     else:
         await bot.delete_message(message.chat.id, message.message_id)
