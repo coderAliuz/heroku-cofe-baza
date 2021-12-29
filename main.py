@@ -18,10 +18,10 @@ async def send_welcome(message: types.Message):
     await message.reply(f"🤓Assalom aleykum✋\n{message.chat.full_name}\n🥤GulDU Coffee Clubga\n😍XUSH KELDINGIZ‼️")
     user_id=message.chat.id
     name=message.chat.full_name
-    db_ob.execute(f"SELECT id FROM cofe_baza where id={message.chat.id}")
+    db_ob.execute(f"SELECT id FROM cofe_baza WHERE id={message.chat.id}")
     data = db_ob.fetchone()
     if data is None:
-        db_ob.execute('INSERT INTO cofe_baza VALUES (?,?)', (user_id, name))
+        db_ob.execute("INSERT INTO cofe_baza(user_id,name) VALUES (%s,%s)", (user_id, name))
         db_ob.commit()
     else:
         await bot.delete_message(message.chat.id, message.message_id)
